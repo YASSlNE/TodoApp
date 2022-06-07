@@ -8,7 +8,7 @@ function Task({Title}) {
   return (
     <>
         <div className="flex justify-center">
-  <div className="bg-blue-700 w-80 h-16 rounded-2xl shadow-2xl bg-white ">
+  <div className="bg-blue-800 w-80 h-16 rounded-2xl shadow-2xl bg-white ">
   <div className="inline-flex gap-4">
       <div className='pl-4 pt-2'>
       <input type="checkbox" class="form-checkbox h-10 w-10 accent-pink-500"/>
