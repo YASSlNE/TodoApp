@@ -1,24 +1,31 @@
-import logo from './logo.svg';
 import './App.css';
-
+import Navbar from './components/Navbar';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
+import NotFound from './components/NotFound';
+import Home from './components/Home';
+import Ziw from './components/Ziw';
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <>
+    <div className='bg-blue-400	 min-h-screen'>
+    <Router>
+    
+    <Navbar/>
+    <div className="grid gap-20 place-items-center">
+    <Routes>
+            <Route path='/' element={<Home />} />
+            <Route path='/about' element={<NotFound />} />
+            <Route path='/notfound' element={<NotFound />} />
+            <Route path='/ziw' element={<NotFound />} />
+            <Route path='/signed' element={<Ziw/>} />
+    </Routes>
+
+      
+	
     </div>
+  </Router>
+  </div>
+  </>
   );
 }
 
