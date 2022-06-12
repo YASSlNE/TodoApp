@@ -1,25 +1,38 @@
-import React from 'react'
+import React,{useState} from 'react'
 import PropTypes from "prop-types"
+import {Link} from 'react-router-dom'
+import { CgDetailsMore } from "react-icons/cg";
 
-function Task({Title}) {
+function Task({Title, Details}) {
   Task.defaultProps={
-    Title: 'Github Finder'
+    Title: 'Task',
+    Details: 'Details',
   }
+  const handleClick=()=>{
+    console.log(Details)
+  }
+  const [Checked,setChecked]=useState(false)
+
+  const handleCheck=()=>{
+    setChecked(!Checked)
+  }
+
   return (
     <>
-        <div className="flex justify-center">
-  <div className="bg-blue-800 w-80 h-16 rounded-2xl shadow-2xl bg-white ">
-  <div className="inline-flex gap-4">
-      <div className='pl-4 pt-2'>
-      <input type="checkbox" class="form-checkbox h-10 w-10 accent-pink-500"/>
-      {/* <input checked id="red-checkbox" type="checkbox" value="" class="w-10 h-10 text-red-600 bg-gray-100 rounded-xl border-gray-300 dark:bg-gray-700 dark:border-gray-600"/> */}
-      </div>
-      <label className="form-check-label inline-block text-lg text-white pt-4">
-      {Title}
-      </label>
+    
+    <div className="flex my-2 justify-between break-all max-w-3xl py-6 h-auto bg-blue-700 rounded-2xl shadow-2xl bg-white">
+
+        <div className="px-4">
+          <input onClick={handleCheck} type="checkbox" class="form-checkbox h-10 w-10 accent-pink-500" checked={Checked}/>
+        </div>
+        <div className="text-lg text-white">
+        {Title}
+        </div>
+        <div onClick={handleClick}>
+          <button className='px-4'><CgDetailsMore size={50} color="white"/></button>
+        </div>
     </div>
-  </div>
-</div>
+
     </>
     
   )
