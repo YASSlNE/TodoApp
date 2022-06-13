@@ -4,6 +4,12 @@ import Task from './Task'
 import { useState } from 'react';
 import {v4 as uuidv4} from 'uuid'
 
+import {BsFillPlusCircleFill} from "react-icons/bs"
+
+import {motion, AnimatePresence} from 'framer-motion'
+
+
+
 function Ziw() {
 
   const [HideForm,setHideForm]=useState(true);
@@ -29,6 +35,12 @@ function Ziw() {
 
   const [Ta,setTa]=useState('')
 
+  const [Category,setCategory]=useState('');
+
+  const handleCategory=(e)=>{
+    setCategory(e.target.value);
+  }
+
   const handleIn=(e)=>{
     setIn(e.target.value);
   }
@@ -47,10 +59,24 @@ function Ziw() {
     setText([pair,...Text])
   }
   
+  const dropIn={
+    hidden:{
+      y:'-10vh',
+      opacity:0,
+    },
+    visible:{
+      y:'0',
+      opacity:1,
+    },
+    exit:{
+      y:'30vh',
+      opacity:0,
+    },
+  };
 
   return (
     <>
-    <div>What's up, Mahmoud!</div>
+    <div className='text-7xl text-white'>What's up, Mahmoud!</div>
     <div>CATEGORIES</div>
     <div className="inline-flex gap-7">
     <Card/>
@@ -68,14 +94,31 @@ function Ziw() {
 
 
     
-{/*Creating the form*/}
-    {HideForm ? <form onSubmit={handleSubmit} className='gap-3'>
+{/*Beginning of the form*/}
+
+<div>
+<AnimatePresence>
+    {HideForm ? 
+// <motion.form className="pt-8" autoComplete="off" animate {toggleForm ? "open" : "closed"}
+//   variants={variants}>
+
+      <motion.form variants={dropIn} initial="hidden" animate="visible" exit="exit" onSubmit={handleSubmit} className='gap-3'>
+
                     <div class="flex -mx-3">
                         <div class="w-11/12 px-3 mb-5">
                             <label for="" class="text-xs font-semibold px-1">Task</label>
                             <div class="flex">
                                 <div class="w-10 z-10 pl-1 text-center pointer-events-none flex items-center justify-center"><i class="mdi mdi-account-outline text-gray-400 text-lg"></i></div>
                                 <input id="ta" type="text" value={In} onChange={handleIn} class="w-max -ml-10 pl-5 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500" placeholder="John"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex -mx-3">
+                        <div class="w-11/12 px-3 mb-5">
+                            <label for="" class="text-xs font-semibold px-1">Category</label>
+                            <div class="flex">
+                                <div class="w-10 z-10 pl-1 text-center pointer-events-none flex items-center justify-center"><i class="mdi mdi-account-outline text-gray-400 text-lg"></i></div>
+                                <input id="ta" type="text" value={Category} onChange={handleCategory} class="w-max -ml-10 pl-5 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500" placeholder="Business"/>
                             </div>
                         </div>
                     </div>
@@ -105,12 +148,31 @@ function Ziw() {
       placeholder="Your message"  value={Ta} onChange={handleTa} ></textarea>
   </div>
   </div>
-  <button class="bg-blue-800 hover:bg-blue-900 text-white font-bold py-2 px-4 rounded">
+  <motion.button whileHover={{ scale:1.1 }} whilteTap={{ scale:0.9 }} class="bg-blue-800 hover:bg-blue-900 text-white font-bold py-2 px-4 rounded">
         Submit
-      </button>
-</form> : null}
+      </motion.button>
 
-<button className='absolute bottom-32 right-8 ' onClick={() => setHideForm(!HideForm)}>+</button>
+</motion.form>
+
+
+      
+
+ : null}
+</AnimatePresence>
+
+  <motion.button whileHover={{ scale:1.4 }} whilteTap={{ scale:0.9 }}>
+    <BsFillPlusCircleFill size={50} className='flex mx-40' onClick={() => setHideForm(!HideForm)}></BsFillPlusCircleFill>
+  </motion.button>
+
+</div>
+{/*Ending of the form*/}
+
+
+
+
+
+
+
 
 
 
