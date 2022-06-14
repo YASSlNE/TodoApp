@@ -3,13 +3,15 @@ import PropTypes from "prop-types"
 import {Link} from 'react-router-dom'
 import { CgDetailsMore } from "react-icons/cg";
 
-function Task({Title, Details}) {
+function Task({Title, Details, Category}) {
   Task.defaultProps={
     Title: 'Task',
     Details: 'Details',
+    Category: 'Business',
   }
   const handleClick=()=>{
     console.log(Details)
+    console.log(Category)
   }
   const [Checked,setChecked]=useState(false)
 
@@ -20,10 +22,10 @@ function Task({Title, Details}) {
   return (
     <>
     
-    <div className="flex my-2 justify-between break-all max-w-3xl py-6 h-auto bg-blue-700 rounded-2xl shadow-2xl bg-white">
+    <div className="flex bg-blue-700 my-2 justify-between break-all max-w-3xl py-6 h-auto  rounded-2xl shadow-2xl bg-white">
 
         <div className="px-4">
-          <input onClick={handleCheck} type="checkbox" class="form-checkbox h-10 w-10 accent-pink-500" checked={Checked}/>
+          <input onChange={handleCheck} type="checkbox" class="form-checkbox h-10 w-10 accent-pink-500" checked={Checked}/>
         </div>
         <div className="text-lg text-white">
         {Title}

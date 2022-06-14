@@ -1,7 +1,7 @@
 import React from 'react'
 import Card from './Card'
 import Task from './Task'
-import { useState } from 'react';
+import { useState,useEffect } from 'react';
 import {v4 as uuidv4} from 'uuid'
 
 import {BsFillPlusCircleFill} from "react-icons/bs"
@@ -18,16 +18,19 @@ function Ziw() {
   const [Text, setText]=useState([{
     key:1,
     value:'lorem ipsum dolor sit amet consectetuer adipiscing elit sed diam nonummy nibh',
+    category:'Business',
     details:'A7a',
   },
   {
     key:2,
     value:'lorem ipsum dolor sit amet consectetuer adipiscing elit sed diam nonummy nibh lorem ipsum dolor sit amet consectetuer adipiscing elit sed diam nonummy nibh lorem ipsum dolor sit amet consectetuer adipiscing elit sed diam nonummy nibh ',
+    category:'Business',    
     details:'A7atayn',
   },
   {
     key:3,
     value:'nibh ',
+    category:'Business',
     details:'Thalethat a7at',
   }
     ]);
@@ -35,10 +38,10 @@ function Ziw() {
 
   const [Ta,setTa]=useState('')
 
-  const [Category,setCategory]=useState('');
+  const [Incategory,setIncategory]=useState('');
 
   const handleCategory=(e)=>{
-    setCategory(e.target.value);
+    setIncategory(e.target.value);
   }
 
   const handleIn=(e)=>{
@@ -53,7 +56,8 @@ function Ziw() {
     const pair={
       key:uuidv4(),
       value:In,
-      details:Ta
+      category:Incategory,
+      details:Ta,
     }
     // console.log(pair)
     setText([pair,...Text])
@@ -74,15 +78,87 @@ function Ziw() {
     },
   };
 
+
+  const [cat,setCat]=useState('');
+
+
+  const cats={}
+    Text.map((item)=>{
+      if(item.category in cats)
+        cats[item.category]++;
+      else
+        cats[item.category]=1;
+    })
+
+  useEffect(()=>{
+    const cats={}
+    Text.map((item)=>{
+      if(item.category in cats)
+        cats[item.category]++;
+      else
+        cats[item.category]=1;
+    })
+    
+  }
+  )
+
+
+
+
+  // useEffect(()=>{
+  //   cats.map((item)=>{
+  //       console.log(item);
+  //     }
+  // )
+  // }
+  // )
+
+
+
+  // const test=()=>{
+  //   const cats={}
+  //   Text.map((item)=>{
+  //     if(item.category in cats)
+  //       cats[item.category]++;
+  //     else
+  //       cats[item.category]=1;
+  //   })
+  //   console.log(cats)
+  // }
+  var cards = [];
+
+  for(let property in cats){
+        cards.push(<Card NbOfTasks={cats[property]} Category={property}/>);
+  }
+
+
   return (
     <>
     <div className='text-7xl text-white'>What's up, Mahmoud!</div>
     <div>CATEGORIES</div>
     <div className="inline-flex gap-7">
-    <Card/>
-    <Card/>
+
+
+
+    {cards}
+
+
+
+
+
+    
+
+
+
+
+
+
     </div>
     <div>TODAY'S TASKS</div>
+
+    {/*<button onClick={test}>click me</button>*/}
+    
+
 
 
 {/*    {HideForm ? <form className='absolute bottom-30 right-4' onSubmit={handleSubmit} >
@@ -118,7 +194,7 @@ function Ziw() {
                             <label for="" class="text-xs font-semibold px-1">Category</label>
                             <div class="flex">
                                 <div class="w-10 z-10 pl-1 text-center pointer-events-none flex items-center justify-center"><i class="mdi mdi-account-outline text-gray-400 text-lg"></i></div>
-                                <input id="ta" type="text" value={Category} onChange={handleCategory} class="w-max -ml-10 pl-5 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500" placeholder="Business"/>
+                                <input id="ta" type="text" value={Incategory} onChange={handleCategory} class="w-max -ml-10 pl-5 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500" placeholder="Business"/>
                             </div>
                         </div>
                     </div>
@@ -178,7 +254,7 @@ function Ziw() {
 
     <div class="grid gap-4">
     {Text.map((item)=>{
-      return <Task key={item.key} Title={item.value} Details={item.details} />
+      return <Task key={item.key} Title={item.value} Details={item.details} Category={item.category} />
     })}
     </div>
     
