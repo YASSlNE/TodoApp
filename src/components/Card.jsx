@@ -11,14 +11,16 @@ function Card({NbOfTasks,Category}) {
 
 
 
-
-  const percentage=(NbOfTasks/20)*100;
+  if(NbOfTasks>20)
+    NbOfTasks=20
+  const percentage=(NbOfTasks/20)*208;
 
   // useEffect(()=>{
   //   // console.log("percentage is "+percentage.toString());
   //   const percentage=(NbOfTasks/20)*100;
   // })
 
+  console.log("percentage"+ percentage)
 
   // const perc=50;
 
@@ -27,7 +29,7 @@ function Card({NbOfTasks,Category}) {
   return (
     <>
     <div className="flex justify-center">
-  <div className="bg-blue-700 block w-64 h-30 p-6 rounded-3xl shadow-2xl bg-white max-w-sm">
+  <div className="bg-blue-800 block w-64 h-30 p-6 rounded-3xl shadow-2xl bg-white max-w-sm">
     <p className="text-gray-400 text-base mb-4">
       {NbOfTasks} tasks
     </p>
