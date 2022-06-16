@@ -8,9 +8,17 @@ import {BsFillPlusCircleFill} from "react-icons/bs"
 
 import {motion, AnimatePresence} from 'framer-motion'
 
-
+import app from "../Firebase";
 
 function Ziw() {
+
+  const saveText=(input)=>{
+    const saveToFirebase=app.firestore();
+    saveToFirebase.collection("todoapp").add({input});
+    console.log("mldskjfqsmdlkfj");
+  }
+
+
 
   const [HideForm,setHideForm]=useState(true);
 
@@ -61,6 +69,7 @@ function Ziw() {
     }
     // console.log(pair)
     setText([pair,...Text])
+    saveText(pair);
   }
   
   const dropIn={
