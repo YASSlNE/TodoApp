@@ -8,20 +8,47 @@ import {BsFillPlusCircleFill} from "react-icons/bs"
 
 import {motion, AnimatePresence} from 'framer-motion'
 
-import app from "../Firebase";
+// import {db,app} from "../Firebase";
+
+import { collection, getDocs, addDoc } from "firebase/firestore"; 
+
+// import '@firebase/firestore';
+import { initializeApp } from "firebase/app";
+import { getFirestore } from "firebase/firestore";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyCqpHZcALPd2Nz03N5Fk49Laaf6N8pKlho",
+  authDomain: "todoapp-770e3.firebaseapp.com",
+  projectId: "todoapp-770e3",
+  storageBucket: "todoapp-770e3.appspot.com",
+  messagingSenderId: "415512502648",
+  appId: "1:415512502648:web:e27ae063fe0e9e6beca88d",
+  measurementId: "G-5JKX01332J"
+};
+
+
+
 
 function Ziw() {
 
-  const saveText=(input)=>{
-    const saveToFirebase=app.firestore();
-    saveToFirebase.collection("todoapp").add({input});
-    console.log("mldskjfqsmdlkfj");
+
+  // *Setting up firebase firestore*
+
+
+  const app = initializeApp(firebaseConfig);
+  const db = getFirestore(app);
+
+
+
+  const saveText=async (input)=>{
+    try{
+      const docRef=await addDoc(collection(db, "TodoApp"), input);
+      console.log("Document written with ID:", docRef.id);
+    }
+    catch(e){
+      console.error("Error adding document : ", e);
+    }
   }
-
-
-
-  const [HideForm,setHideForm]=useState(true);
-
 
   const [Text, setText]=useState([{
     key:1,
@@ -42,6 +69,43 @@ function Ziw() {
     details:'Thalethat a7at',
   }
     ]);
+
+
+  const getText=async()=>{
+    const querySnapshot = await getDocs(collection(db, "TodoApp"));
+    const pairs=[]
+    querySnapshot.forEach((doc) => {
+      // console.log(doc.data()['key']);7
+      const key=doc.data()['key']
+      const value=doc.data()['value']
+      const category=doc.data()['category']
+      const details=doc.data()['details']
+      const pair={
+        key,
+        value,
+        category,
+        details,
+      }
+      pairs.push(pair);
+      // console.log(pairs);
+      pairs.push(Text);
+      setText(pairs);
+    });
+
+  }
+
+  // useEffect(()=>{
+  //   getText();
+  // },[])
+
+// *Completed the firestore setup* 
+
+
+
+  const [HideForm,setHideForm]=useState(true);
+
+
+  
   const [In,setIn]=useState('')
 
   const [Ta,setTa]=useState('')
