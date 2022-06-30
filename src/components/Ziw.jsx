@@ -133,9 +133,9 @@ function Ziw() {
     }
     // console.log(pair)
     setText([pair,...Text])
-    saveText(pair);
+    // saveText(pair);
   }
-  
+  // The dropIn of the form
   const dropIn={
     hidden:{
       y:'-10vh',
@@ -147,6 +147,24 @@ function Ziw() {
     },
     exit:{
       y:'30vh',
+      opacity:0,
+    },
+  };
+
+
+
+// The dropIn of the task
+  const dropInTask={
+    hidden:{
+      y:'-10vh',
+      opacity:0,
+    },
+    visible:{
+      y:'0',
+      opacity:1,
+    },
+    exit:{
+      y:'20vh',
       opacity:0,
     },
   };
@@ -323,14 +341,17 @@ function Ziw() {
 
 
 
-
+<AnimatePresence>
 
     <div class="grid gap-4">
     {Text.map((item)=>{
-      return <Task key={item.key} Title={item.value} Details={item.details} Category={item.category} />
+      return (<>
+      <motion.div key={item.key} variants={dropIn} initial="hidden" animate="visible" exit="exit">
+      <Task key={item.key} Title={item.value} Details={item.details} Category={item.category} />
+      </motion.div></>)
     })}
     </div>
-    
+</AnimatePresence>
     </>
   )
 }
