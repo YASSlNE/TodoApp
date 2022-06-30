@@ -22,7 +22,7 @@ function Task({Title, Details, Category}) {
   return (
     <>
     
-    <div className="flex bg-blue-700 my-2 justify-between break-all max-w-3xl py-6 h-auto  rounded-2xl shadow-2xl bg-white">
+    <div className="flex bg-blue-800 my-2 justify-between break-all max-w-3xl py-6 h-auto  rounded-2xl shadow-2xl">
 
         <div className="px-4">
           <input onChange={handleCheck} type="checkbox" class="form-checkbox h-10 w-10 accent-pink-500" checked={Checked}/>
